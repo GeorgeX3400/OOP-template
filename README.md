@@ -1,5 +1,7 @@
-# Nu primesc notă pentru că nu am pus titlu și descriere
+#SuperSquares
+Un joc shooter 2d top-down.
 
+<!---
 ### Important!
 Aveți voie cu cod generat de modele de limbaj la care nu ați contribuit semnificativ doar în folder-ul `generated`.
 Codul generat pus "ca să fie"/pe care nu îl înțelegeți se punctează doar pentru puncte bonus, doar în contextul
@@ -11,7 +13,7 @@ O cerință nu se consideră îndeplinită dacă este realizată doar ca o serie
 - [ ] minim o funcționalitate majoritar doar cu LLM
 - [ ] minim 2-3 funcționalități ~50% voi, ~50% LLM-ul
 - [ ] minim 2-3 funcționalități suficient de complicate pe care un LLM nu le poate implementa
-
+-->
 ### Tema 0
 
 - [ ] Nume proiect (poate fi schimbat ulterior)

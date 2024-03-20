@@ -1,10 +1,14 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.22)
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing executable name in this file
 # for now, the project name is used as the executable name
 project(oop)
 
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_C_COMPILER "clang")
+set(CMAKE_CXX_COMPILER "clang++")
+
+
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -32,7 +36,7 @@ function(set_custom_stdlib_and_sanitizers target add_apple_asan)
         return()
     endif()
 
-    if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+    if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" AND NOT WIN32)
         target_compile_options(${target} PRIVATE -stdlib=libc++)
         target_link_options(${target} PRIVATE -stdlib=libc++)
     endif()
@@ -80,6 +84,30 @@ endfunction()
 # )
 #
 # FetchContent_MakeAvailable(SomeLib)
+find_package(raylib QUIET)
+if (NOT raylib_FOUND)
+    include(FetchContent)
+    FetchContent_Declare(
+        raylib
+        GIT_REPOSITORY https://github.com/raysan5/raylib.git
+        GIT_TAG 5.0
+        GIT_SHALLOW 1
+    )
+    FetchContent_MakeAvailable(raylib)
+endif()
+
+# raylib-cpp
+# find_package(raylib_cpp QUIET)
+# if (NOT raylib_cpp_FOUND)
+#     include(FetchContent)
+#     FetchContent_Declare(
+#         raylib_cpp
+#         GIT_REPOSITORY https://github.com/RobLoach/raylib-cpp.git
+#         GIT_TAG v5.0.1
+#     )
+#     FetchContent_MakeAvailable(raylib_cpp)
+# endif()
+
 
 ###############################################################################
 
@@ -125,10 +153,13 @@ set_custom_stdlib_and_sanitizers(${PROJECT_NAME} true)
 
 # use SYSTEM so cppcheck/clang-tidy does not report warnings from these directories
 target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE generated/include)
-# target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ext/<SomeHppLib>/include)
-# target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${<SomeLib>_SOURCE_DIR}/include)
-# target_link_directories(${PROJECT_NAME} PRIVATE ${<SomeLib>_BINARY_DIR}/lib)
-# target_link_libraries(${PROJECT_NAME} <SomeLib>)
+target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ext/include)
+#target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${raylib_cpp_SOURCE_DIR}/include)
+target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${raylib_SOURCE_DIR}/include)
+#target_link_directories(${PROJECT_NAME} PRIVATE ${raylib_cpp_BINARY_DIR}/lib)
+target_link_directories(${PROJECT_NAME} PRIVATE ${raylib_BINARY_DIR}/lib)
+
+target_link_libraries(${PROJECT_NAME} raylib)
 
 ###############################################################################
 
