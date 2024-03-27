@@ -1,4 +1,4 @@
-#SuperSquares
+# SuperSquares
 Un joc shooter 2d top-down.
 
 <!---
