@@ -4,8 +4,7 @@ cmake_minimum_required(VERSION 3.22)
 # for now, the project name is used as the executable name
 project(oop)
 
-set(CMAKE_C_COMPILER "clang")
-set(CMAKE_CXX_COMPILER "clang++")
+
 
 
 set(CMAKE_CXX_STANDARD 17)

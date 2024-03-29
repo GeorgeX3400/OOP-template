@@ -39,7 +39,7 @@
 						"kernel32"
 					]
 				},
-				"path" : "clang",
+				"path" : "C:/Users/ASUS-ROG/mingw64/bin/clang.exe",
 				"version" : "17.0.6"
 			},
 			"language" : "C",
@@ -92,7 +92,7 @@
 						"kernel32"
 					]
 				},
-				"path" : "clang++",
+				"path" : "C:/Users/ASUS-ROG/mingw64/bin/clang++.exe",
 				"version" : "17.0.6"
 			},
 			"language" : "CXX",
