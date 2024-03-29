@@ -48,6 +48,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --no-install-recommends cppcheck
+          sudo apt-get update
+          sudo apt-get install libxrandr-dev
 
       # The flag CMAKE_EXPORT_COMPILE_COMMANDS generates compile_commands.json
       # which is used by cppcheck and clang-tidy
@@ -90,6 +92,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --no-install-recommends clang-tidy-17 libc++-17-dev libc++abi-17-dev
+          sudo apt-get update
+          sudo apt-get install libxrandr-dev
 
       - name: Configure CMake
         uses: ./.github/actions/configure-cmake
@@ -161,9 +165,9 @@ jobs:
             runs_asan: true
 
           - os: macos-12
-            c: gcc-12
-            cxx: g++-12
-            name: "macOS 12 GCC 12"
+       #     c: gcc-12
+       #    cxx: g++-12
+       #   name: "macOS 12 GCC 12"
             # cmake_flags:
             # cmake_generator: Ninja
 
@@ -209,6 +213,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install ninja-build
+          sudo apt-get update
+          sudo apt-get install libxrandr-dev
 
       # Also see https://github.com/actions/runner-images/discussions/9446#discussioncomment-8668538
       - name: Install Clang 17

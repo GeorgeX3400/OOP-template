@@ -164,7 +164,6 @@ class Player
 
 public:
     Player() {
-        
         rectangle = raylib::Rectangle{WIDTH / 2, HEIGHT / 2, 20, 20};
         up = raylib::Rectangle{rectangle.GetX() + 1, rectangle.GetY() - 2, 18, 1};
         down = raylib::Rectangle{rectangle.GetX() + 1, rectangle.GetY() + rectangle.GetHeight() + 1, 18, 1};
@@ -172,15 +171,27 @@ public:
         right = raylib::Rectangle{rectangle.GetX() + rectangle.GetWidth() + 1.2f, rectangle.GetHeight(), 1, 20};
         hasCollided = {false, false, false, false};
         position = rectangle.GetPosition();
+        alive = true;
     }
 
     Player(const Player& other): position{other.position}, rectangle{other.rectangle}, 
-    up{other.up}, down{other.down}, left{other.left}, right{other.right}, 
-    hasCollided{other.hasCollided}{
+    up{other.up}, down{other.down}, left{other.left}, right{other.right},
+    hasCollided{other.hasCollided}, alive{other.alive}{
         std::cout << "Constr de copiere Player" << '\n';
     }
     ~Player() {
         std::cout << "Destructor Player" << '\n';
+    }
+    Player& operator=(const Player& other){
+        position = other.position;
+        rectangle = other.rectangle;
+        up = other.up;
+        down = other.down;
+        left= other.left;
+        right = other.right;
+        hasCollided = other.hasCollided;
+        alive = other.alive;
+        return *this;
     }
     //operator <<:
     friend std::ostream& operator<<(std::ostream& os, const Player& p){
