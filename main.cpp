@@ -120,7 +120,6 @@ public:
     void SetPosition(raylib::Vector2 vec) { position = vec; }
     void SetTarget(raylib::Vector2 t) { target = t; }
     void SetTarget(float x, float y) { target = raylib::Vector2(x, y); }
-    void SetDirection(raylib::Vector2 dir) { direction = dir; }
     float GetSpeed(){return speed;}
     void SetSpeed(float val) {speed = val;}
     void InitializeCollision() { for(int i = 0; i < 4; i++) hasCollided[i] = false; }
@@ -376,10 +375,14 @@ public:
     void main(){
         raylib::Window window(1280, 720, "SuperSquares");
         SetTargetFPS(120);
+        while(!started) {
+            BeginDrawing();
+            runStartWindow();
+            EndDrawing();
+        }
         while(!window.ShouldClose()){ 
             BeginDrawing();
-            if(!started) runStartWindow();
-            else if(started && player.GetAlive()) run();
+            if( player.GetAlive()) run();
             else runLoserWindow();
             EndDrawing();
         }
