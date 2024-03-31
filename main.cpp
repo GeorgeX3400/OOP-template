@@ -16,8 +16,7 @@ class Bullet{
     raylib::Vector2 spawnPosition;
 
 public:
-    Bullet(raylib::Vector2 origin, raylib::Vector2 target){   
-        direction = target - origin;
+    Bullet(raylib::Vector2 origin, raylib::Vector2 target) : direction{target - origin}{   
         float distance = std::sqrt((target.GetX() - origin.GetX()) * (target.GetX() - origin.GetX()) +
                          (target.GetY() - origin.GetY()) * (target.GetY() - origin.GetY()));
         direction *= 1.0f / distance;
@@ -58,15 +57,12 @@ public:
 
 class Wall{
     raylib::Vector2 position;
-    float width, height;
+
     raylib::Rectangle rectangle;
 
 public:
     raylib::Vector2 GetPosition() { return position; }
-    Wall(float w, float h, raylib::Vector2 pos){
-        width = w, height = h, position = pos;
-        rectangle = Rectangle{pos.x, pos.y, w, h};
-    }
+    Wall(float w, float h, raylib::Vector2 pos) : position{pos}, rectangle{raylib::Rectangle{pos.x, pos.y, w, h}}{}
     friend std::ostream& operator<<(std::ostream& os, const Wall& p){
         os << "Position: x-> " << p.rectangle.GetX() << "y-> " << p.rectangle.GetY() << '\n';
         return os;
@@ -78,8 +74,9 @@ public:
 };
 // ENEMY: --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 class Enemy{
-    raylib::Vector2 position;
     raylib::Rectangle rectangle;
+    raylib::Vector2 position;
+    float speed;
     raylib::Vector2 direction;
     raylib::Vector2 target;
     raylib::Rectangle up;
@@ -87,7 +84,7 @@ class Enemy{
     raylib::Rectangle left;
     raylib::Rectangle right; // "sensors" - help check collisions with walls
     bool hasCollided[4];
-    float speed;
+    
 
 private:
     void CalculateAndNormalizeDirection(){
@@ -103,14 +100,14 @@ private:
 
 public:
     Enemy() {}
-    Enemy(float x, float y){
-        rectangle = raylib::Rectangle(x, y, 20, 20);
-        position = raylib::Vector2(x, y);
+    Enemy(float x, float y) : rectangle{raylib::Rectangle(x, y, 20, 20)}, 
+    position{raylib::Vector2(x, y)},
+    speed{1}
+    {
         up = raylib::Rectangle{rectangle.GetX(), rectangle.GetY() - 2, 20, 1};
         down = raylib::Rectangle{rectangle.GetX(), rectangle.GetY() + rectangle.GetHeight() + 1, 20, 1};
         left = raylib::Rectangle{rectangle.GetX() - 2, rectangle.GetY(), 1, 20};
         right = raylib::Rectangle{rectangle.GetX() + rectangle.GetWidth() + 1, rectangle.GetHeight(), 1, 20};
-        speed = 1; 
     }
     friend std::ostream& operator<<(std::ostream& os, const Enemy& e) {
         os << "Position: x-> " << e.position.GetX() << " y-> " << e.position.GetY() << '\n';
@@ -118,13 +115,11 @@ public:
         return os;
     }
     raylib::Vector2 GetPosition() { return position; }
-    raylib::Vector2 GetDirection() { return direction; }
     raylib::Rectangle GetRectangle() { return rectangle; }
     void SetPosition(float x, float y) { position = raylib::Vector2(x, y); }
     void SetPosition(raylib::Vector2 vec) { position = vec; }
     void SetTarget(raylib::Vector2 t) { target = t; }
     void SetTarget(float x, float y) { target = raylib::Vector2(x, y); }
-    void SetDirection(float x, float y) { direction = raylib::Vector2(x, y); }
     void SetDirection(raylib::Vector2 dir) { direction = dir; }
     float GetSpeed(){return speed;}
     void SetSpeed(float val) {speed = val;}
@@ -163,15 +158,15 @@ class Player
     bool alive;
 
 public:
-    Player() {
-        rectangle = raylib::Rectangle{WIDTH / 2, HEIGHT / 2, 20, 20};
+    Player() : rectangle{raylib::Rectangle{WIDTH / 2, HEIGHT / 2, 20, 20}},
+     hasCollided{{false, false, false, false}},
+     alive{true}
+     {    
         up = raylib::Rectangle{rectangle.GetX() + 1, rectangle.GetY() - 2, 18, 1};
         down = raylib::Rectangle{rectangle.GetX() + 1, rectangle.GetY() + rectangle.GetHeight() + 1, 18, 1};
         left = raylib::Rectangle{rectangle.GetX() - 2.2f, rectangle.GetY(), 1, 20};
-        right = raylib::Rectangle{rectangle.GetX() + rectangle.GetWidth() + 1.2f, rectangle.GetHeight(), 1, 20};
-        hasCollided = {false, false, false, false};
-        position = rectangle.GetPosition();
-        alive = true;
+        right = raylib::Rectangle{rectangle.GetX() + rectangle.GetWidth() + 1.2f, rectangle.GetHeight(), 1, 20}; 
+        position = rectangle.GetPosition(); 
     }
 
     Player(const Player& other): position{other.position}, rectangle{other.rectangle}, 
@@ -213,7 +208,6 @@ public:
         hasCollided[3] = hasCollided[3] || rec.CheckCollision(right);
     }
     raylib::Rectangle GetRectangle() { return rectangle; }
-    void SetRectangle(raylib::Rectangle newRectangle) { rectangle = newRectangle; }
     bool GetAlive() {return alive;}
     void SetAlive(bool val) {alive = val;}
     void handleMovement() {
@@ -280,18 +274,7 @@ protected:
     bool started;
 
     //member functions:
-    raylib::Vector2 ClosestSpawnPoint(raylib::Vector2 target) {
-        float minDistance = 1000;
-        raylib::Vector2 minVector = raylib::Vector2(0, 0);
-        for(int i = 0; i < (int)spawnPoints.size(); i++){
-            float distance = std::sqrt((target.GetX() - spawnPoints[i].GetX()) * (target.GetX() - spawnPoints[i].GetX()) + (target.GetY() - spawnPoints[i].GetY()) * (target.GetY() - spawnPoints[i].GetY()));
-            if(distance < minDistance) {
-                minDistance = distance;
-                minVector = spawnPoints[i];
-            }
-        }
-        return minVector;
-    }
+
 public:
     Game() {
         walls.push_back(Wall(20, 360, raylib::Vector2(120, 150)));
