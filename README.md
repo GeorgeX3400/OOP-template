@@ -1,5 +1,6 @@
 # SuperSquares
-Un joc shooter 2d top-down.
+Un joc shooter 2d top-down. Scopul tău este să împuști cât mai mulți inamici. Cu cât progresezi mai mult și ai un scor mai mare, cu atât inamicii devin mai rapizi. Dacă ești atins, pierzi jocul.
+Câți inamici poți să invingi?
 
 <!---
 ### Important!
