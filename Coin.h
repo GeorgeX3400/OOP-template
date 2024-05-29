@@ -10,7 +10,7 @@ class Coin : public Object{
 public:
     Coin();
     void Draw() override;
-    Object* clone() const override;;
+    Object* clone() const override;
 };
 
 

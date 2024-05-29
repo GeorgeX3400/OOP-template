@@ -20,9 +20,9 @@ class Object {
         Object(raylib::Rectangle r);
         Object(const Object& other);
         Object& operator=(const Object& other) = default;
-        friend std::ostream& operator<<(std::ostream &os, const Object &o);;
+        friend std::ostream& operator<<(std::ostream &os, const Object &o);
         virtual void afisare(std::ostream &os) const;
-        friend void swap(Object& o1, Object& o2);;
+        friend void swap(Object& o1, Object& o2);
         virtual ~Object();
 };
 

@@ -13,7 +13,7 @@ class Wall : public Object{
 public:
 
     Wall(float w, float h, raylib::Vector2 pos);
-    Object* clone() const override;;
+    Object* clone() const override;
     void Draw() override;
 };
 

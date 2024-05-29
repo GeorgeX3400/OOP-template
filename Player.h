@@ -14,7 +14,6 @@ const int HEIGHT = 720;
 class Player : public MovableObject
 {
 
-    std::vector<bool> hasCollided;
     bool alive;
 
 public:
@@ -30,9 +29,9 @@ public:
     void SetCollision(raylib::Rectangle rec);
     bool GetAlive() const;
     void SetAlive(bool val);
-    virtual void handleMovement();
+    void handleMovement() override;
     void Draw() override;
-    Object* clone() const  override;;
+    [[maybe_unused]]Object* clone() const  override;
 };
 //left to check the position setter (and remove one of them)
 

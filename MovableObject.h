@@ -22,7 +22,7 @@ public:
     MovableObject(const MovableObject& other);
     MovableObject& operator=(const MovableObject& other);
     ~MovableObject() override;
-    void afisare(std::ostream &os) const override;;
+    void afisare(std::ostream &os) const override;
 };
 
 
