@@ -5,6 +5,7 @@ cmake_minimum_required(VERSION 3.22)
 project(oop)
 
 
+#set(CMAKE_BUILD_TYPE Debug)
 
 
 set(CMAKE_CXX_STANDARD 17)
@@ -118,7 +119,35 @@ endif()
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
 add_executable(${PROJECT_NAME} main.cpp
-        generated/src/Helper.cpp)
+        generated/src/Helper.cpp
+        Bullet.cpp
+        Bullet.h
+        Gun.cpp
+        Gun.h
+        Wall.cpp
+        Wall.h
+        Enemy.cpp
+        Enemy.h
+        Player.cpp
+        Player.h
+        Statistics.cpp
+        Statistics.h
+        Game.cpp
+        Game.h
+        Object.cpp
+        Object.h
+        MovableObject.cpp
+        MovableObject.h
+        Coin.cpp
+        Coin.h
+        MovableException.cpp
+        MovableException.h
+        MovableException.h
+        MovableException.h
+        MovableException.h
+        OutOfBoundsException.cpp
+        OutOfBoundsException.h
+        OutOfBoundsException.h)
 
 ###############################################################################
 
