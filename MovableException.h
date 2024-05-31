@@ -10,7 +10,7 @@
 
 class MovableException : public std::runtime_error {
 protected:
-    MovableException(std::string msg);
+    explicit MovableException(const std::string& msg);
     MovableException(const MovableException& other);
     MovableException& operator=(const MovableException& other);
 

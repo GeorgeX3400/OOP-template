@@ -9,7 +9,7 @@
 
 class OutOfBoundsException : public MovableException{
 public:
-    OutOfBoundsException(std::string msg);
+    explicit OutOfBoundsException(std::string msg);
 
 };
 

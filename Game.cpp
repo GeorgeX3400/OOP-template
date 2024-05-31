@@ -41,6 +41,7 @@ Game::Game() {
     coin->SetPosition(coinSpawnPoints[GetRandomValue(0, 3)]);
     startButton = raylib::Rectangle(580, 580, 110, 60);
     started = false;
+    player->afisare(std::cout);
 }
 
 
@@ -75,12 +76,12 @@ void Game::run() {
     player->InitializeCollision();
     enemy->InitializeCollision();
     enemy->SetTarget(player->GetPosition());
-    for (int i = 0; i < (int)walls.size(); i++){
-        player->SetCollision(walls[i]->GetBody());
-        enemy->SetCollision(walls[i]->GetBody());
+    for(auto & wall : walls){
+        player->SetCollision(wall->GetBody());
+        enemy->SetCollision(wall->GetBody());
     }
-    for (int i = 0; i < (int)walls.size(); i++){
-        walls[i]->Draw();
+    for(auto & wall : walls){
+        wall->Draw();
     }
     for(int i = 0; i < (int)gun.GetBullets().size(); i++){
         gun.GetBullets()[i].handleMovement();
@@ -124,7 +125,7 @@ void Game::runLoserWindow() {
 
     ClearBackground(Color{130, 5, 5, 150});
     raylib::DrawText("You died!", 500, 150, 50, Color{50, 220, 60, 250});
-    raylib::DrawText("Highscore: " + std::to_string(statistics.GetHighscore()), 350, 400, 30, Color{191, 255, 112, 250});
+    raylib::DrawText("Highscore: " + std::to_string(Statistics::GetHighscore()), 350, 400, 30, Color{191, 255, 112, 250});
     startButton.Draw(GOLD);
     raylib::DrawText("RESTART",  590, 600, 18, Color{251, 255, 143, 250});
     if(IsMouseButtonPressed(0) && startButton.CheckCollision(GetMousePosition())){

@@ -4,7 +4,7 @@
 
 #include "MovableException.h"
 
-MovableException::MovableException(std::string msg) : std::runtime_error(msg){
+MovableException::MovableException(const std::string& msg) : std::runtime_error(msg){
     std::cout << "MovableException occurred: " << msg << '\n';
 }
 
@@ -15,4 +15,5 @@ MovableException::MovableException(const MovableException &other) : std::runtime
 MovableException &MovableException::operator=(const MovableException &other) {
     std::runtime_error::operator=(other);
     std::cout << "op= copiere MovableException\n";
+    return *this;
 }

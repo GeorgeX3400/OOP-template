@@ -9,12 +9,10 @@
 #include "MovableObject.h"
 class Enemy : public MovableObject {
 
-    raylib::Vector2 position;
     float speed;
     raylib::Vector2 direction;
     raylib::Vector2 target;
     float currentNuance; //
-    bool hasCollided[4];
 
 
 private:
@@ -35,7 +33,7 @@ public:
     void SetCollision(const raylib::Rectangle &rec);
     void handleMovement() override;
     void Draw() override;
-    Object* clone() const override;
+    [[maybe_unused]]Object* clone() const override;
 
 };
 

@@ -37,6 +37,7 @@ private:
     void runLoserWindow();
 public:
     Game();
+    Game(const Game& other) = default;
 
     void main();
 };

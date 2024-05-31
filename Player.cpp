@@ -6,7 +6,6 @@
 #include "OutOfBoundsException.h"
 
 Player::Player() : MovableObject(raylib::Rectangle(500, 300, 20, 20)),
-                   hasCollided{{false, false, false, false}},
                    alive{true}{
     std::cout << "Constructor Player\n";
     if(body.GetX() < 20 || body.GetY() < 20 || body.GetX() > 700 || body.GetY() > 1080){
@@ -16,7 +15,7 @@ Player::Player() : MovableObject(raylib::Rectangle(500, 300, 20, 20)),
 }
 
 Player::Player(const Player &other) : MovableObject(other),
-                                      hasCollided{other.hasCollided}, alive{other.alive}{
+                                       alive{other.alive}{
     std::cout << "Constr de copiere Player" << '\n';
 }
 
