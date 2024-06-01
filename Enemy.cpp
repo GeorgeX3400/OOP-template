@@ -16,7 +16,7 @@ void Enemy::CalculateAndNormalizeDirection() {
 }
 
 Enemy::Enemy() : MovableObject(raylib::Rectangle(25, 25, 20, 20)),
-                                 speed{0.8}, currentNuance{(float)10} {}
+                                 speed{0.8f}, currentNuance{(float)10} {}
 
 std::ostream &operator<<(std::ostream &os, const Enemy &e) {
     os << "Position: x-> " << e.body.GetX() << " y-> " << e.body.GetY() << '\n';
