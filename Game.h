@@ -15,7 +15,6 @@
 
 class Game {
     //variables used in the gameplay:
-    raylib::Vector2 startPosition{};
     std::vector<Object*> walls;
     Statistics statistics;
     Player* player;
@@ -37,8 +36,8 @@ private:
     void runLoserWindow();
 public:
     Game();
-    Game(const Game& other) = default;
-
+    Game(const Game& other);
+    Game& operator=(const Game& other);
     void main();
 };
 

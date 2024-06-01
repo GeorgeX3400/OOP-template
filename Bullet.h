@@ -17,7 +17,7 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Bullet& p);
     void Draw() override;
     void handleMovement() override;
-    Object* clone() const override;
+    [[maybe_unused]]Object* clone() const override;
 };
 
 

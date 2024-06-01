@@ -35,7 +35,7 @@ Game::Game() {
     };
     player = new Player;
     player->SetPosition(raylib::Vector2(WIDTH/2, HEIGHT/2));
-    enemy = new Enemy();
+    enemy = new Enemy;
     gun = Gun();
     coin = dynamic_cast<Coin*>(new Coin);
     coin->SetPosition(coinSpawnPoints[GetRandomValue(0, 3)]);
@@ -44,6 +44,24 @@ Game::Game() {
     player->afisare(std::cout);
 }
 
+
+Game::Game(const Game& other): player{dynamic_cast<Player *>(other.player->clone())},
+                                enemy{dynamic_cast<Enemy*>(other.enemy->clone())} ,started{other.started},
+                                coin{dynamic_cast<Coin*>(other.coin->clone())}  {
+}
+
+Game &Game::operator=(const Game &other) {
+    if(this != &other) {
+        delete player;
+        delete enemy;
+        delete coin;
+        player = dynamic_cast<Player*>(other.player->clone());
+        enemy = dynamic_cast<Enemy*>(other.enemy->clone());
+        coin = dynamic_cast<Coin*>(other.coin->clone());
+        return *this;
+    }
+    return *this;
+}
 
 void Game::initGame() {
     player->SetAlive(true);
