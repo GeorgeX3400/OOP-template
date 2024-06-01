@@ -19,12 +19,11 @@ MovableObject &MovableObject::operator=(const MovableObject &other) {
 
 MovableObject::MovableObject(const MovableObject& other) = default;
 
-MovableObject::MovableObject(raylib::Rectangle r) : Object(r) {
-    up = raylib::Rectangle{body.GetX() + 1, body.GetY() - 2, 18, 1};
-    down = raylib::Rectangle{body.GetX() + 1, body.GetY() + body.GetHeight() + 1, 18, 1};
-    left = raylib::Rectangle{body.GetX() - 2.2f, body.GetY(), 1, 20};
-    right = raylib::Rectangle{body.GetX() + body.GetWidth() + 1.2f, body.GetHeight(), 1, 20};
-}
+MovableObject::MovableObject(raylib::Rectangle r) : Object(r),
+                        up{raylib::Rectangle{body.GetX() + 1, body.GetY() - 2, 18, 1}},
+                        down{raylib::Rectangle{body.GetX() + 1, body.GetY() + body.GetHeight() + 1, 18, 1}},
+                        left{raylib::Rectangle{body.GetX() - 2.2f, body.GetY(), 1, 20}},
+                        right{raylib::Rectangle{body.GetX() + body.GetWidth() + 1.2f, body.GetHeight(), 1, 20}}{}
 
 void MovableObject::afisare(std::ostream &os) const {
     os << "Position: x-> " << body.GetX() << "y-> " << body.GetY() << '\n';

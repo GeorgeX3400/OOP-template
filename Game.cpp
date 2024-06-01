@@ -35,7 +35,7 @@ Game::Game() {
     };
     player = new Player;
     player->SetPosition(raylib::Vector2(WIDTH/2, HEIGHT/2));
-    enemy = new Enemy(30, 30);
+    enemy = new Enemy();
     gun = Gun();
     coin = dynamic_cast<Coin*>(new Coin);
     coin->SetPosition(coinSpawnPoints[GetRandomValue(0, 3)]);

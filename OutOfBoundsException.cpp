@@ -4,4 +4,4 @@
 
 #include "OutOfBoundsException.h"
 
-OutOfBoundsException::OutOfBoundsException(std::string msg) : MovableException(msg) {}
+OutOfBoundsException::OutOfBoundsException(const std::string& msg) : MovableException(msg) {}

@@ -15,7 +15,7 @@ void Enemy::CalculateAndNormalizeDirection() {
         direction.SetX(0);
 }
 
-Enemy::Enemy(float x, float y) : MovableObject(raylib::Rectangle(25, 25, 20, 20)),
+Enemy::Enemy() : MovableObject(raylib::Rectangle(25, 25, 20, 20)),
                                  speed{0.8}, currentNuance{(float)10} {}
 
 std::ostream &operator<<(std::ostream &os, const Enemy &e) {
@@ -41,11 +41,11 @@ void Enemy::SetCollision(const raylib::Rectangle &rec) {
     hasCollided[3] = hasCollided[3] || right.CheckCollision(rec);
 }
 
-int Enemy::lerp(raylib::Vector2 target) {
+int Enemy::lerp(raylib::Vector2 tgt) {
     float lowerBoundNuance = 10, upperBoundNuance = 250;
     float lowerDistance = 80, upperDistance = 150;
-    float distance = std::sqrt((body.GetX() - target.GetX()) * (body.GetX() - target.GetX())
-            + (body.GetY() - target.GetY()) * (body.GetY() - target.GetY()));
+    float distance = std::sqrt((body.GetX() - tgt.GetX()) * (body.GetX() - tgt.GetX())
+            + (body.GetY() - tgt.GetY()) * (body.GetY() - tgt.GetY()));
     if(distance > upperDistance) return lowerBoundNuance;
     else if (distance < lowerDistance) return upperBoundNuance;
     else {

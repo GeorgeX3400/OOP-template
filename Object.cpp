@@ -22,7 +22,9 @@ std::ostream &operator<<(std::ostream &os, const Object &o) {
     return os;
 }
 
-void Object::afisare(std::ostream &os) const {}
+void Object::afisare(std::ostream &os) const {
+    os << "Position: x-> " << body.GetX() << "y-> " << body.GetY() << '\n';
+}
 
 void swap(Object &o1, Object &o2) {
     using std::swap;

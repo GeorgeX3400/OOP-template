@@ -17,14 +17,14 @@ class Enemy : public MovableObject {
 
 private:
     void CalculateAndNormalizeDirection();
-    int lerp(raylib::Vector2 target);
+    int lerp(raylib::Vector2 tgt);
     //lerp - short for "interpolation":
     //calculates the brightness of the enemy body
     // depending on how close it is to the player
 
 public:
-    Enemy() {}
-    Enemy(float x, float y);
+
+    Enemy();
     friend std::ostream& operator<<(std::ostream& os, const Enemy& e);
     void SetTarget(raylib::Vector2 t);
     float GetSpeed();
