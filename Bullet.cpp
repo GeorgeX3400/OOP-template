@@ -31,6 +31,4 @@ void Bullet::handleMovement() {
     body.Draw(Color{220, 220, 220, 250});
 }
 
-Object *Bullet::clone() const {
-    return new Bullet(*this);
-}
+
