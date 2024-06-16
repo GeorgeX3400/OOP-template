@@ -4,20 +4,36 @@
 
 #include "Game.h"
 
+
+
+
 Game::Game() {
-    walls.push_back(new Wall(20, 360, raylib::Vector2(120, 150)));
-    walls.push_back(new Wall(320, 20, raylib::Vector2(180, 560)));
-    walls.push_back(new Wall(20, 260, raylib::Vector2(580, 220)));
-    walls.push_back(new Wall(20, 320, raylib::Vector2(820, 80)));
-    walls.push_back(new Wall(360, 20, raylib::Vector2(320, 120)));
-    walls.push_back(new Wall(240, 40, raylib::Vector2(880, 520)));
-    walls.push_back(new Wall(60, 60, raylib::Vector2(280, 300)));
-    walls.push_back(new Wall(160, 20, raylib::Vector2(1020, 320)));
+    //w:20, h: 360, pos: raylib::Vector2(120, 150)
+    walls.push_back(wallBuilder.width(20).height(360).x(120).y(150).build());
+    std::cout << walls[0].GetBody().GetX() << " " << walls[0].GetBody().GetY();
+    //w:320, h: 20, pos: raylib::Vector2(180, 560)
+    walls.push_back(wallBuilder.width(320).height(20).x(180).y(560).build());
+    //w:20, h: 260, pos: raylib::Vector2(580, 220)
+    walls.push_back(wallBuilder.width(20).height(260).x(580).y(220).build());
+    //w:20, h: 320, pos: raylib::Vector2(820, 80)
+    walls.push_back(wallBuilder.width(20).height(320).x(820).y(80).build());
+    //w:360, h: 20, pos: raylib::Vector2(320, 120)
+    walls.push_back(wallBuilder.width(360).height(20).x(320).y(120).build());
+    //w:240, h: 40, pos: raylib::Vector2(880, 520)
+    walls.push_back(wallBuilder.width(240).height(40).x(880).y(520).build());
+    //w:60, h: 60, pos: raylib::Vector2(280, 300)
+    walls.push_back(wallBuilder.width(60).height(60).x(280).y(300).build());
+    //w:160, h: 20, pos: raylib::Vector2(1020, 320)
+    walls.push_back(wallBuilder.width(160).height(20).x(1020).y(320).build());
     //the next 4 are the margins of the map:
-    walls.push_back(new Wall(20, 720, raylib::Vector2(0,0)));
-    walls.push_back(new Wall(20, 720, raylib::Vector2(WIDTH - 20, 0)));
-    walls.push_back(new Wall(1280, 20, raylib::Vector2(0,0)));
-    walls.push_back(new Wall(1280, 20, raylib::Vector2(0,HEIGHT - 20)));
+    //w:20, h: 720, pos: raylib::Vector2(0, 0)
+    walls.push_back(wallBuilder.width(20).height(720).x(0).y(0).build());
+    //w:20, h: 720, pos: raylib::Vector2(WIDTH - 20, 0)
+    walls.push_back(wallBuilder.width(20).height(720).x(WIDTH - 20).build());
+    //w:1280, h: 20, pos: raylib::Vector2(0, 0)
+    walls.push_back(wallBuilder.width(1280).height(20).x(0).y(0).build());
+    //w:1280, h: 20, pos: raylib::Vector2(0, HEIGHT - 20)
+    walls.push_back(wallBuilder.width(1280).height(20).y(HEIGHT - 20).build());
     spawnPoints = {
             raylib::Vector2(80, 80),
             raylib::Vector2(WIDTH/2 + 70, 50),
@@ -33,42 +49,30 @@ Game::Game() {
             raylib::Vector2{1080, 200},
 
     };
-    player = new Player;
-    player->SetPosition(raylib::Vector2(WIDTH/2, HEIGHT/2));
-    enemy = new Enemy;
+    player = Player();
+    player.SetPosition(raylib::Vector2(WIDTH/2, HEIGHT/2));
+    enemy = Enemy();
     gun = Gun();
-    coin = dynamic_cast<Coin*>(new Coin);
-    coin->SetPosition(coinSpawnPoints[GetRandomValue(0, 3)]);
+    coin = Coin();
+    coin.SetPosition(coinSpawnPoints[GetRandomValue(0, 3)]);
     startButton = raylib::Rectangle(580, 580, 110, 60);
     started = false;
-    player->afisare(std::cout);
+    player.afisare(std::cout);
+
+
 }
 
 
-Game::Game(const Game& other): player{dynamic_cast<Player *>(other.player->clone())},
-                                enemy{dynamic_cast<Enemy*>(other.enemy->clone())} ,started{other.started},
-                                coin{dynamic_cast<Coin*>(other.coin->clone())}  {
-}
 
-Game &Game::operator=(const Game &other) {
-    if(this != &other) {
-        delete player;
-        delete enemy;
-        delete coin;
-        player = dynamic_cast<Player*>(other.player->clone());
-        enemy = dynamic_cast<Enemy*>(other.enemy->clone());
-        coin = dynamic_cast<Coin*>(other.coin->clone());
-        return *this;
-    }
-    return *this;
-}
+
+
 
 void Game::initGame() {
-    player->SetAlive(true);
-    enemy->SetPosition(spawnPoints[GetRandomValue(0, 5)]);
-    player->SetPosition(raylib::Vector2(WIDTH/2, HEIGHT/2));
-    coin->SetPosition(coinSpawnPoints[GetRandomValue(0, 3)]);
-    enemy->SetSpeed(1);
+    player.SetAlive(true);
+    enemy.SetPosition(spawnPoints[GetRandomValue(0, 5)]);
+    player.SetPosition(raylib::Vector2(WIDTH/2, HEIGHT/2));
+    coin.SetPosition(coinSpawnPoints[GetRandomValue(0, 3)]);
+    enemy.SetSpeed(1);
     Statistics::InitScore();
 }
 
@@ -76,54 +80,60 @@ void Game::initGame() {
 // GAMEPLAY FUNCTION:
 void Game::run() {
     ClearBackground(Color{10, 5, 5, 200});
-    gun.handleShooting(player->GetPosition() + raylib::Vector2(10, 10));
+    gun.handleShooting(player.GetPosition() + raylib::Vector2(10, 10));
 
-    if(player->GetBody().CheckCollision(enemy->GetBody())){
+    if(player.GetBody().CheckCollision(enemy.GetBody())){
         //if the enemy caught the player, he dies, and it's game over:
-        player->SetAlive(false);
+        player.SetAlive(false);
         Statistics::UpdateHighscore();
     }
-    if(player->GetBody().CheckCollision(coin->GetBody())){
+    if(player.GetBody().CheckCollision(coin.GetBody())){
         // move the coin in another point of the map, and update the score:
+        Statistics::AddScore(coin.GetPointsOnCatch());
+        raylib::Vector2 currentPosition = coin.GetBody().GetPosition();
+        int choice = GetRandomValue(1, 50);
+        if(choice % 10 == 0) coin = CoinFactory::goldenCoin();
+        else if(choice % 4 == 0) coin = CoinFactory::silverCoin();
+        else coin = CoinFactory::bronzeCoin();
         raylib::Vector2 otherPosition = coinSpawnPoints[GetRandomValue(0, 3)];
-        while(otherPosition == coin->GetBody().GetPosition()) otherPosition = coinSpawnPoints[GetRandomValue(0, 3)];
-        coin->SetPosition(otherPosition);
+        while(otherPosition == currentPosition) otherPosition = coinSpawnPoints[GetRandomValue(0, 3)];
+        coin.SetPosition(otherPosition);
         Statistics::AddCoin();
     }
     //checking the collisions with the walls:
-    player->InitializeCollision();
-    enemy->InitializeCollision();
-    enemy->SetTarget(player->GetPosition());
+    player.InitializeCollision();
+    enemy.InitializeCollision();
+    enemy.SetTarget(player.GetPosition());
     for(auto & wall : walls){
-        player->SetCollision(wall->GetBody());
-        enemy->SetCollision(wall->GetBody());
+        player.SetCollision(wall.GetBody());
+        enemy.SetCollision(wall.GetBody());
     }
     for(auto & wall : walls){
-        wall->Draw();
+        wall.Draw();
     }
     for(int i = 0; i < (int)gun.GetBullets().size(); i++){
         gun.GetBullets()[i].handleMovement();
         bool erased = false;
-        for(const auto wall : walls) {
-            if(gun.GetBullets()[i].GetBody().CheckCollision(wall->GetBody()))
+        for(const auto& wall : walls) {
+            if(gun.GetBullets()[i].GetBody().CheckCollision(wall.GetBody()))
                 gun.GetBullets().erase(gun.GetBullets().begin() + i), erased = true;
         }
         if(!erased)
-            if(enemy->GetBody().CheckCollision(gun.GetBullets()[i].GetBody())) {
+            if(enemy.GetBody().CheckCollision(gun.GetBullets()[i].GetBody())) {
                 Statistics::AddKill();
-                enemy->SetPosition(spawnPoints[GetRandomValue(0, 5)]);
-                if(enemy->GetBody().GetX() < 0 || enemy->GetBody().GetY() < 0 ||
-                enemy->GetBody().GetX() > (WIDTH - 20) || enemy->GetBody().GetY() > (HEIGHT - 20)) {
+                enemy.SetPosition(spawnPoints[GetRandomValue(0, 5)]);
+                if(enemy.GetBody().GetX() < 0 || enemy.GetBody().GetY() < 0 ||
+                enemy.GetBody().GetX() > (WIDTH - 20) || enemy.GetBody().GetY() > (HEIGHT - 20)) {
                     throw OutOfBoundsException("Enemy spawned out of the map.");
                 }
                 gun.GetBullets().erase(gun.GetBullets().begin() + i);
-                enemy->SetSpeed(enemy->GetSpeed() + 0.1f);
+                enemy.SetSpeed(enemy.GetSpeed() + 0.1f);
             }
     }
 
-    player->handleMovement();
-    enemy->handleMovement();
-    coin->Draw();
+    player.handleMovement();
+    enemy.handleMovement();
+    coin.Draw();
     Statistics::draw();
 
 }
@@ -162,7 +172,7 @@ void Game::main() {
     }
     while(!window.ShouldClose()){
         BeginDrawing();
-        if( player->GetAlive()) run();
+        if( player.GetAlive()) run();
         else runLoserWindow();
         EndDrawing();
     }

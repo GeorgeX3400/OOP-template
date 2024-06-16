@@ -9,12 +9,13 @@
 #include "Object.h"
 class Wall : public Object{
 
-
+    friend class WallBuilder;
 public:
-
+    Wall() = default;
     Wall(float w, float h, raylib::Vector2 pos);
     Object* clone() const override;
     void Draw() override;
+
 };
 
 

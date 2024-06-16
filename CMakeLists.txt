@@ -140,14 +140,19 @@ add_executable(${PROJECT_NAME} main.cpp
         MovableObject.h
         Coin.cpp
         Coin.h
-        MovableException.cpp
-        MovableException.h
-        MovableException.h
-        MovableException.h
-        MovableException.h
+        ObjectException.cpp
+        ObjectException.h
+        ObjectException.h
+        ObjectException.h
+        ObjectException.h
         OutOfBoundsException.cpp
         OutOfBoundsException.h
-        OutOfBoundsException.h)
+        OutOfBoundsException.h
+        WallBuilder.cpp
+        WallBuilder.h
+        WallBuilder.h
+        CoinFactory.cpp
+        CoinFactory.h)
 
 ###############################################################################
 

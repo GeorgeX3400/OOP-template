@@ -7,6 +7,7 @@
 
 Player::Player() : MovableObject(raylib::Rectangle(500, 300, 20, 20)),
                    alive{true}{
+    hasCollided = {false, false, false, false};
     std::cout << "Constructor Player\n";
     if(body.GetX() < 20 || body.GetY() < 20 || body.GetX() > 700 || body.GetY() > 1080){
         throw OutOfBoundsException("Player is out of the map.");

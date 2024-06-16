@@ -7,8 +7,12 @@
 #include <raylib-cpp.hpp>
 #include "Object.h"
 class Coin : public Object{
+    raylib::Color color;
+    int pointsOnCatch;
 public:
     Coin();
+    Coin(int size, raylib::Color c, int points);
+    int GetPointsOnCatch();
     void Draw() override;
     Object* clone() const override;
 };

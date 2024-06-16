@@ -12,21 +12,22 @@
 #include "Wall.h"
 #include "Coin.h"
 #include "OutOfBoundsException.h"
-
+#include "WallBuilder.h"
+#include "CoinFactory.h"
 class Game {
     //variables used in the gameplay:
-    std::vector<Object*> walls;
+    std::vector<Wall> walls;
     Statistics statistics;
-    Player* player;
+    Player player;
     Gun gun;
-    Enemy* enemy;
+    Enemy enemy;
     std::vector<raylib::Vector2> spawnPoints;
     std::vector<raylib::Vector2> coinSpawnPoints;
     //variables used in the start menu:
     raylib::Rectangle startButton;
     bool started;
-    Object* coin;
-
+    Coin coin;
+    WallBuilder wallBuilder;
     //member functions:
 
 private:
@@ -36,8 +37,8 @@ private:
     void runLoserWindow();
 public:
     Game();
-    Game(const Game& other);
-    Game& operator=(const Game& other);
+    Game(const Game& other) = default;
+    Game& operator=(const Game& other) = delete;
     void main();
 };
 

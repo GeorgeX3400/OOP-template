@@ -11,11 +11,13 @@ class Statistics {
     static int kills;
     static int highscore;
     static int coinsCollected;
+    static int score;
 
 public:
     Statistics();
     static void AddCoin();
     static void AddKill();
+    static void AddScore(int a);
     static void InitScore();
     static void UpdateHighscore();
     static void draw();

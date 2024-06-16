@@ -16,7 +16,8 @@ void Enemy::CalculateAndNormalizeDirection() {
 }
 
 Enemy::Enemy() : MovableObject(raylib::Rectangle(25, 25, 20, 20)),
-                                 speed{0.8f}, currentNuance{(float)10} {}
+                                 speed{0.8f}, currentNuance{(float)10} {
+}
 
 std::ostream &operator<<(std::ostream &os, const Enemy &e) {
     os << "Position: x-> " << e.body.GetX() << " y-> " << e.body.GetY() << '\n';
@@ -58,8 +59,7 @@ int Enemy::lerp(raylib::Vector2 tgt) {
 void Enemy::Draw() {}
 
 void Enemy::handleMovement() {
-    std:: cout << "target: " << target.GetX() << " " << target.GetY() << '\n';
-    std::cout << "direction: " << direction.GetX() << " " << direction.GetY() << '\n';
+
     CalculateAndNormalizeDirection();
     raylib::Vector2 position = body.GetPosition() + direction * speed;
     body.SetPosition(position);

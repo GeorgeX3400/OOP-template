@@ -5,9 +5,9 @@
 #ifndef OOP_OUTOFBOUNDSEXCEPTION_H
 #define OOP_OUTOFBOUNDSEXCEPTION_H
 #include <iostream>
-#include "MovableException.h"
+#include "ObjectException.h"
 
-class OutOfBoundsException : public MovableException{
+class OutOfBoundsException : public ObjectException{
 public:
     explicit OutOfBoundsException(const std::string& msg);
 
