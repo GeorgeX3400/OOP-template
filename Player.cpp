@@ -81,6 +81,4 @@ void Player::handleMovement() {
 
 void Player::Draw() {}
 
-Object *Player::clone() const {
-    return new Player(*this);
-}
+

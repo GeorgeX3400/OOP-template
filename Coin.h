@@ -14,7 +14,6 @@ public:
     Coin(int size, raylib::Color c, int points);
     int GetPointsOnCatch();
     void Draw() override;
-    Object* clone() const override;
 };
 
 

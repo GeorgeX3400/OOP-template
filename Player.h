@@ -31,7 +31,6 @@ public:
     void SetAlive(bool val);
     void handleMovement() override;
     void Draw() override;
-    [[maybe_unused]]Object* clone() const  override;
 };
 //left to check the position setter (and remove one of them)
 

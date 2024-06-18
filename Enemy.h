@@ -33,7 +33,7 @@ public:
     void SetCollision(const raylib::Rectangle &rec);
     void handleMovement() override;
     void Draw() override;
-    [[maybe_unused]]Object* clone() const override;
+
 
 };
 

@@ -15,7 +15,7 @@ class Object {
         raylib::Vector2 virtual GetPosition();
         virtual void SetPosition(raylib::Vector2 pos);
         virtual void Draw() = 0;
-        virtual Object* clone() const = 0;
+
         Object();
         Object(raylib::Rectangle r);
         Object(const Object& other);

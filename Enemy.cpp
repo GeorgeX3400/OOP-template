@@ -71,6 +71,4 @@ void Enemy::handleMovement() {
     body.Draw({0, 0}, 0, raylib::Color(currentNuance, 5, 5));
 }
 
-Object *Enemy::clone() const {
-    return new Enemy(*this);
-}
+

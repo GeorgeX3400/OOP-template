@@ -16,6 +16,4 @@ void Wall::Draw() {
     body.Draw(Color{80, 0, 0, 230});
 }
 
-Object *Wall::clone() const {
-    return new Wall(*this);
-}
+
